@@ -6,5 +6,5 @@ import 'package:angular/angular.dart';
   templateUrl: 'header_component.html'
 )
 class HeaderComponent {
-
+  String title = 'ToDo-List 2020';
 }

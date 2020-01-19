@@ -1,3 +1,23 @@
-<new-todo></new-todo>
+<form (ngSubmit)="addNewGoal(input.value)">
+  <input id="newGoal" type="text" placeholder="✐ Новая цель" #input>
+  <button type="submit">+</button>
+</form>
 
-<todos></todos>
+<ng-container *ngIf="todos.length>0">
+  <li *ngFor="let todo of todos; let i=index" id="{{todos.indexOf(todo)}}" class="{{todo['active']}}">
+
+    <ng-container *ngIf="todo['active']=='active'">
+      <input type="checkbox">{{todo['goal']}}
+    </ng-container>
+
+    <ng-container *ngIf="todo['active']=='inactive'">
+      <input type="checkbox" checked>{{todo['goal']}}
+    </ng-container>
+
+    <button (click)="remove(i)">REMOVE</button>
+  </li>
+</ng-container>
+
+<ng-container *ngIf="todos.isEmpty">
+  <h2>No goals!</h2>
+</ng-container>
