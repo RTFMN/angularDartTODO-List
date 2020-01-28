@@ -1,12 +1,7 @@
+import 'package:dart_web/src/models/mock_todo_list.dart';
 import 'dart:async';
-import 'dart:convert';
-import 'dart:html';
+import 'package:dart_web/src/models/todo_goal.dart';
 
-import 'package:angular/core.dart';
-
-@Injectable()
 class TodoListService{
-  List todos = json.decode(window.localStorage['goals']);
-
-  Future<List> getTodoList() async => todos;
+  Future<List<TodoGoal>> getAll() async => todos;
 }

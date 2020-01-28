@@ -3,8 +3,10 @@ import 'package:angular/angular.dart';
 @Component(
   selector: 'header',
   styleUrls: ['header_component.css'],
-  templateUrl: 'header_component.html'
+  templateUrl: 'header_component.html',
 )
-class HeaderComponent {
+
+@Injectable()
+class HeaderComponent{
   String title = 'ToDo-List 2020';
 }
