@@ -11,40 +11,56 @@ import 'package:dart_web/src/services/todo-list_service.dart';
 )
 
 class TodoListComponent implements OnInit{
-  TodoGoal editedTodo;
-
+  String placeholder = 'Oh, do you really need it?!';
   List<TodoGoal> todos = []; 
-  final TodoListService _todoListService;
-  TodoListComponent(this._todoListService);
-  
-  // Future ngOnInit() async {
-  //   todos = await _todoListService.getAll();
-  // }
+  TodoGoal newGoal = TodoGoal();
+  TodoGoal editedTodo;
+  TodoGoal changedTodo;
+  bool loading = true;
 
-  Future _getTodos() async {
-    todos = await _todoListService.getAll();
+  final TodoListService service;
+  TodoListComponent(this.service);
+  
+  @override
+  Future ngOnInit() async {
+    todos = await service.getAll();
+    loading = false;
   }
 
-  void ngOnInit() {
-    _getTodos();
+  addTodo() async {
+    if (newGoal.goal.isNotEmpty){
+      String newTodoId;
+      
+      TodoGoal newTodo = TodoGoal(goal: newGoal.goal);
+      newTodoId = await service.addTodo(newTodo);
+      newTodo.id = newTodoId;
+      todos.add(newTodo);
+      newGoal = TodoGoal();
+    }
+  }
+
+  changeState(int index) async {
+    todos[index].done = !todos[index].done;
+    await service.changeState(todos[index]);
   }
 
   editTodo(int index){
     todos[index].edit = true;
-    editedTodo = TodoGoal(goal: todos[index].goal, done: todos[index].done, edit: todos[index].edit );
+    editedTodo = TodoGoal(goal: todos[index].goal);
   }
 
-  updateTodo(int index){
+  updateTodo(int index) async {
     todos[index].goal = editedTodo.goal;
-    todos[index].done = editedTodo.done;
     todos[index].edit = false;
+    await service.editTodo(todos[index]);
   }
 
   cancelEdit(int index){
     todos[index].edit = false;
   }
 
-  removeTodo(int index){
+  removeTodo(int index) async {
+    await service.removeTodo(todos[index]);
     todos.removeAt(index);
   }
 }

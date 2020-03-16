@@ -1,8 +1,0 @@
-<form class="container p-0 mt-3">
-  <div class="input-group">
-    <input type="text" class="form-control " placeholder="{{ placeholder }}" [(ngModel)]='newGoal.goal' autofocus (keyup.enter)="addTodo()">
-    <div class="input-group-append">
-      <button class="btn btn-outline-success" [disabled]='newGoal.goal.isEmpty' type="button" (click)='addTodo()'>+ Add Goal!</button>
-    </div>
-  </div>
-</form>

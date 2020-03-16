@@ -1,13 +1,27 @@
+<form class="container p-0 mt-3">
+  <div class="input-group">
+    <input type="text" class="form-control " placeholder="{{ placeholder }}" [(ngModel)]='newGoal.goal' autofocus (keyup.enter)="addTodo()">
+    <div class="input-group-append">
+      <button class="btn btn-outline-success" [disabled]='newGoal.goal.isEmpty' type="button" (click)='addTodo()'>+ Add Goal!</button>
+    </div>
+  </div>
+</form>
+<hr>
 <ul class="list-group container p-0 mb-3 overflow-auto">
-    <p class="container text-center" *ngIf='todos.isEmpty'>All done!</p>
+    <p class="container text-center" *ngIf='todos.isEmpty && !loading'>All done!</p>
+
+    <div class="container d-flex justify-content-center align-items-center" *ngIf='loading'>
+      <span class="spinner-grow spinner-grow-sm text-primary" role="status" aria-hidden="true"></span>
+      Loading todos...
+    </div>
 
     <li class="list-group-item" *ngFor='let todo of todos; let i = index' [class.list-group-item-light]='todo.done'>
       <!-- EDITING TODO -->
       <div class="d-flex justify-content-between align-items-center" *ngIf='todo.edit' [class.disabled]='todo.done'>
-        <div class="form-check">
+        <div class="form-check changeGoal">
           <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" [checked]='todo.done' [(ngModel)]='editedTodo.done'>
-            <input type="text" [(ngModel)]='editedTodo.goal' autofocus>
+            <!-- <input class="form-check-input" type="checkbox" value="" [checked]='todo.done' [(ngModel)]='editedTodo.done'> -->
+            <input type="text" width="100px" [(ngModel)]='editedTodo.goal' autofocus>
           </label>
         </div>
         <button-group>
@@ -27,11 +41,11 @@
         </button-group>
       </div>
 
-      <!-- TODO -->
+      <!-- TODOS -->
       <div class="d-flex justify-content-between align-items-center" *ngIf='!todo.edit'>
         <div class="form-check">
           <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" [checked]='todo.done' [(ngModel)]='todo.done'>
+            <input class="form-check-input" type="checkbox" [checked]='todo.done' [(ngModel)]='todo.done' (click)='changeState(i)'>
               {{ todo.goal }} 
           </label>
         </div>

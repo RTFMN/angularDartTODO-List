@@ -6,6 +6,8 @@ import 'package:angular/angular.dart';
   templateUrl: 'footer_component.html'
 )
 class FooterComponent {
-  String quote = 'Запомните, что не достичь успеха – иногда тоже большая удача.';
-  String author = 'Далай Лама';
+  // String quote = 'Запомните, что не достичь успеха – иногда тоже большая удача.';
+  // String author = 'Далай Лама';
+  String quote = 'Monkey see, monkey do';
+  String author = 'saying';
 }
