@@ -8,5 +8,5 @@ import 'package:angular/angular.dart';
 
 @Injectable()
 class HeaderComponent{
-  String title = 'ToDo-List 2020';
+  String title = "RTFMN's ToDo-List";
 }
