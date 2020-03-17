@@ -20,7 +20,9 @@ class TodoListService{
     bmData.forEach((key, val) {
       var details = val as Map<String, dynamic>;
       details['id'] = key;
-      todos.add(TodoGoal.fromMap(details));
+      if (details['id']!='example'){
+        todos.add(TodoGoal.fromMap(details));
+      }
     });
     
     return todos;
